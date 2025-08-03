@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { motion } from "framer-motion";
+import BlurText from "@/components/ui/BlurText";
 import { 
   Target, 
   Eye, 
@@ -102,7 +103,7 @@ const About = () => {
   return (
     <Layout>
       {/* Hero Section */}
-      <section className="relative py-20 bg-gradient-hero">
+      <section className="relative py-20">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center">
             <motion.div
@@ -115,9 +116,15 @@ const About = () => {
                 <Rocket className="w-4 h-4 mr-2" />
                 About RIDE
               </Badge>
-              <h1 className="text-4xl md:text-6xl font-bold mb-6 text-primary">
-                Research Innovation Development & Entrepreneurship
-              </h1>
+              <BlurText
+                text="Research Innovation Development & Entrepreneurship"
+                className="text-4xl md:text-6xl font-bold mb-6 text-primary text-center"
+                animateBy="words"
+                delay={150}
+                stepDuration={0.4}
+                direction="top"
+                threshold={0.3}
+              />
               <p className="text-xl text-foreground max-w-2xl mx-auto">
                 JIIT Noida's premier incubation center fostering innovation, 
                 supporting entrepreneurs, and building sustainable businesses.

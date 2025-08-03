@@ -98,7 +98,12 @@ const BlurText: React.FC<BlurTextProps> = ({
     <p
       ref={ref}
       className={className}
-      style={{ display: 'flex', flexWrap: 'wrap' }}
+      style={{ 
+        display: 'flex', 
+        flexWrap: 'wrap',
+        justifyContent: className.includes('text-center') ? 'center' : 'flex-start',
+        textAlign: className.includes('text-center') ? 'center' : 'left'
+      }}
     >
       {elements.map((segment, index) => {
         const animateKeyframes = buildKeyframes(fromSnapshot, toSnapshots);

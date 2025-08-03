@@ -1,6 +1,7 @@
 import { ReactNode } from "react";
 import Header from "./Header";
 import Footer from "./Footer";
+import PageBackground from "@/components/ui/PageBackground";
 
 interface LayoutProps {
   children: ReactNode;
@@ -8,9 +9,10 @@ interface LayoutProps {
 
 const Layout = ({ children }: LayoutProps) => {
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background relative">
+      <PageBackground />
       <Header />
-      <main className="pt-16">
+      <main className="pt-16 relative z-10">
         {children}
       </main>
       <Footer />
