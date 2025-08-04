@@ -126,7 +126,7 @@ const PageBackground = () => {
       </div>
 
       {/* Background Overlay */}
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-background/10 to-background pointer-events-none" />
+      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-background/10 to-background pointer-events-none z-0" />
     </>
   );
 };

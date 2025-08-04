@@ -50,7 +50,7 @@ const Footer = () => {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
-            className="space-y-6"
+            className="space-y-6 relative z-10"
           >
             <Link to="/" className="flex items-center space-x-2 group">
               <motion.div
@@ -97,7 +97,7 @@ const Footer = () => {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.1 }}
             viewport={{ once: true }}
-            className="space-y-6"
+            className="space-y-6 relative z-10"
           >
             <h3 className="text-lg font-semibold text-foreground">Quick Links</h3>
             <ul className="space-y-3">
@@ -125,7 +125,7 @@ const Footer = () => {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
             viewport={{ once: true }}
-            className="space-y-6"
+            className="space-y-6 relative z-10"
           >
             <h3 className="text-lg font-semibold text-foreground">Resources</h3>
             <ul className="space-y-3">
@@ -153,7 +153,7 @@ const Footer = () => {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.3 }}
             viewport={{ once: true }}
-            className="space-y-6"
+            className="space-y-6 relative z-10"
           >
             <h3 className="text-lg font-semibold text-foreground">Get Started</h3>
             

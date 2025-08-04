@@ -28,57 +28,46 @@ const Header = () => {
   ];
 
   return (
-    <motion.header
-      initial={{ y: -100, opacity: 0 }}
-      animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.6, ease: "easeOut" }}
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled
-          ? "bg-background/90 backdrop-blur-lg border-b border-border shadow-elegant"
-          : "bg-transparent"
-      }`}
-    >
+    <header className="fixed top-0 left-0 right-0 z-[9999] bg-gray-900 border-b border-gray-700 shadow-lg">
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-2">
-            <div className="w-10 h-10 bg-gradient-primary rounded-lg flex items-center justify-center">
-              <Rocket className="w-6 h-6 text-primary-foreground" />
+            <div className="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center">
+              <Rocket className="w-6 h-6 text-white" />
             </div>
             <div className="flex flex-col">
-              <span className="text-xl font-bold bg-gradient-primary bg-clip-text text-transparent">
+              <span className="text-xl font-bold text-white">
                 RIDE
               </span>
-              <span className="text-xs text-muted-foreground -mt-1">
+              <span className="text-xs text-gray-300 -mt-1">
                 Incubation Centre
               </span>
             </div>
           </Link>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center space-x-1">
+          <nav className="flex items-center space-x-1">
             {navItems.map((item) => {
               const Icon = item.icon;
               const isActive = location.pathname === item.path;
               return (
-                <Link key={item.name} to={item.path}>
-                  <Button
-                    variant={isActive ? "default" : "ghost"}
-                    size="sm"
-                    className="relative"
-                  >
-                    <Icon className="w-4 h-4 mr-2" />
-                    {item.name}
-                  </Button>
+                <Link
+                  key={item.name}
+                  to={item.path}
+                  className={`flex items-center px-4 py-2 rounded-md transition-colors duration-200 ${isActive ? 'bg-primary text-primary-foreground' : 'text-foreground hover:bg-muted'}`}
+                >
+                  <Icon className="w-4 h-4 mr-2" />
+                  {item.name}
                 </Link>
               );
             })}
           </nav>
 
           {/* CTA Button */}
-          <div className="hidden md:flex items-center space-x-3">
+          <div className="flex items-center space-x-3">
             <Link to="/apply">
-              <Button className="bg-gradient-primary">
+              <Button className="bg-primary text-primary-foreground hover:bg-primary/90">
                 Apply Now
               </Button>
             </Link>
@@ -88,7 +77,7 @@ const Header = () => {
           <Button
             variant="ghost"
             size="sm"
-            className="md:hidden"
+            className="block text-foreground hover:bg-muted"
             onClick={() => setIsOpen(!isOpen)}
           >
             <AnimatePresence mode="wait">
@@ -113,7 +102,7 @@ const Header = () => {
               animate={{ opacity: 1, height: "auto" }}
               exit={{ opacity: 0, height: 0 }}
               transition={{ duration: 0.3, ease: "easeInOut" }}
-              className="md:hidden py-4 border-t border-border/50 bg-background/95 backdrop-blur-lg"
+              className="block py-4 border-t border-border/50 bg-background/95 backdrop-blur-lg"
             >
               <div className="flex flex-col space-y-2">
                 {navItems.map((item, index) => {
@@ -131,8 +120,8 @@ const Header = () => {
                         onClick={() => setIsOpen(false)}
                         className={`flex items-center space-x-3 px-4 py-3 rounded-lg transition-all duration-300 ${
                           isActive
-                            ? "bg-primary/10 text-primary"
-                            : "text-foreground hover:bg-muted"
+                            ? "bg-blue-600/10 text-blue-400"
+                            : "text-white hover:bg-gray-700"
                         }`}
                       >
                         <Icon className="w-5 h-5" />
@@ -148,7 +137,7 @@ const Header = () => {
                   className="pt-4"
                 >
                   <Link to="/apply" onClick={() => setIsOpen(false)}>
-                    <Button className="w-full bg-gradient-primary">
+                    <Button className="w-full bg-blue-600 text-white hover:bg-blue-700">
                       Apply Now
                     </Button>
                   </Link>
@@ -158,7 +147,7 @@ const Header = () => {
           )}
         </AnimatePresence>
       </div>
-    </motion.header>
+    </header>
   );
 };
 

@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -7,7 +8,7 @@
 @layer base {
   :root {
     /* Core brand colors - Innovation & Tech inspired */
-    --background: 0 0% 100%;
+    --background: 220 20% 96%; /* Slightly darker gray for better contrast */
     --foreground: 220 15% 15%;
 
     --card: 0 0% 100%;
@@ -26,7 +27,7 @@
     --secondary-foreground: 260 85% 45%;
 
     /* Muted - Sophisticated Gray */
-    --muted: 220 15% 96%;
+    --muted: 220 15% 94%; /* Slightly darker for better contrast */
     --muted-foreground: 220 15% 45%;
 
     /* Accent - Vibrant Purple for CTAs */
@@ -44,7 +45,7 @@
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 98%;
 
-    --border: 220 15% 90%;
+    --border: 220 15% 85%; /* Darker border for better visibility */
     --input: 220 15% 94%;
     --ring: 235 85% 35%;
 
@@ -54,10 +55,10 @@
     --gradient-hero: linear-gradient(135deg, hsl(235 85% 95% / 0.9), hsl(260 85% 98% / 0.8));
     --gradient-card: linear-gradient(145deg, hsl(0 0% 100% / 0.8), hsl(220 15% 96% / 0.6));
 
-    /* Shadows with brand colors */
-    --shadow-elegant: 0 10px 30px -10px hsl(var(--primary) / 0.3);
+    /* Shadows with brand colors - Enhanced for better visibility */
+    --shadow-elegant: 0 10px 30px -10px hsl(var(--primary) / 0.4); /* Increased opacity */
     --shadow-glow: 0 0 40px hsl(var(--primary-glow) / 0.4);
-    --shadow-card: 0 4px 20px -4px hsl(var(--primary) / 0.1);
+    --shadow-card: 0 4px 20px -4px hsl(var(--primary) / 0.15); /* Slightly increased */
 
     /* Animation variables */
     --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -146,6 +147,7 @@
   }
 
   body {
+    font-family: 'Inter', system-ui, sans-serif;
     @apply bg-background text-foreground;
   }
 }
