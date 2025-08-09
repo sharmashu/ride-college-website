@@ -16,6 +16,7 @@ import {
   CheckCircle
 } from "lucide-react";
 import { Link } from "react-router-dom";
+import { useState } from "react";
 
 const Startups = () => {
   const startups = [
@@ -167,6 +168,11 @@ const Startups = () => {
 
   const categories = ["All", "AI/ML", "HealthTech", "EdTech", "FinTech", "AgriTech", "CleanTech", "Sustainability", "Logistics"];
 
+  const [selectedCategory, setSelectedCategory] = useState<string>("All");
+  const displayedStartups = selectedCategory === "All" 
+    ? startups 
+    : startups.filter((startup) => startup.category === selectedCategory);
+
   return (
     <Layout>
       {/* Hero Section */}
@@ -259,8 +265,11 @@ const Startups = () => {
             {categories.map((category) => (
               <Badge 
                 key={category}
-                variant="outline" 
-                className="cursor-pointer border-primary/30 text-foreground px-4 py-2"
+                onClick={() => setSelectedCategory(category)}
+                role="button"
+                tabIndex={0}
+                variant={selectedCategory === category ? "default" : "outline"}
+                className={`cursor-pointer px-4 py-2 ${selectedCategory === category ? "" : "border-primary/30 text-foreground"}`}
               >
                 {category}
               </Badge>
@@ -269,7 +278,7 @@ const Startups = () => {
 
           {/* Startup Grid */}
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {startups.map((startup, index) => (
+            {displayedStartups.map((startup, index) => (
               <motion.div
                 key={startup.id}
                 initial={{ opacity: 0, y: 30 }}
