@@ -1,3 +1,4 @@
+import { useState } from "react";
 import Layout from "@/components/layout/Layout";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -5,19 +6,18 @@ import { Badge } from "@/components/ui/badge";
 import { motion } from "framer-motion";
 import { 
   Building2, 
-  Globe, 
   Users, 
   TrendingUp, 
   Award,
   ExternalLink,
   ArrowRight,
   Lightbulb,
-  Target,
   CheckCircle
 } from "lucide-react";
 import { Link } from "react-router-dom";
 
 const Startups = () => {
+  const [selectedCategory, setSelectedCategory] = useState<string>("All");
   const startups = [
     {
       id: 1,
@@ -165,8 +165,12 @@ const Startups = () => {
     "Prototype": "bg-yellow-100 text-yellow-800"
   };
 
-  const categories = ["All", "AI/ML", "HealthTech", "EdTech", "FinTech", "AgriTech", "CleanTech", "Sustainability", "Logistics"];
+    const categories = ["All", "AI/ML", "HealthTech", "EdTech", "FinTech", "AgriTech", "CleanTech", "Sustainability", "Logistics"];
 
+  const filteredStartups = selectedCategory === "All"
+    ? startups
+    : startups.filter((startup) => startup.category === selectedCategory);
+  
   return (
     <Layout>
       {/* Hero Section */}
@@ -259,8 +263,9 @@ const Startups = () => {
             {categories.map((category) => (
               <Badge 
                 key={category}
-                variant="outline" 
+                variant={selectedCategory === category ? "secondary" : "outline"}
                 className="cursor-pointer border-primary/30 text-foreground px-4 py-2"
+                onClick={() => setSelectedCategory(category)}
               >
                 {category}
               </Badge>
@@ -269,7 +274,7 @@ const Startups = () => {
 
           {/* Startup Grid */}
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {startups.map((startup, index) => (
+            {filteredStartups.map((startup, index) => (
               <motion.div
                 key={startup.id}
                 initial={{ opacity: 0, y: 30 }}
