@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import "../event.css";
+import "../styles/event.css";
 import Layout from "@/components/layout/Layout";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
