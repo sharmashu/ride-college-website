@@ -94,9 +94,9 @@
     --popover: 220 25% 10%;
     --popover-foreground: 0 0% 95%;
 
-    --primary: 235 85% 65%;
-    --primary-foreground: 220 25% 8%;
-    --primary-glow: 235 85% 75%;
+    --primary: 400 85% 65%;
+    --primary-foreground: 0 25% 8%;
+    --primary-glow: 400 85% 75%;
 
     --secondary: 220 25% 15%;
     --secondary-foreground: 0 0% 95%;
@@ -139,6 +139,17 @@
     --sidebar-border: 240 3.7% 15.9%;
     --sidebar-ring: 217.2 91.2% 59.8%;
   }
+}
+
+/* ✅ Fix: Create Tailwind-like utility classes for custom variables */
+.bg-background {
+  background-color: hsl(var(--background));
+}
+.text-foreground {
+  color: hsl(var(--foreground));
+}
+.border-border {
+  border-color: hsl(var(--border));
 }
 
 @layer base {
