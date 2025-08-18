@@ -1,12 +1,14 @@
+import { useEffect, useRef, useState } from "react";
+import "../event.css";
 import Layout from "@/components/layout/Layout";
 import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { motion } from "framer-motion";
-import { 
-  Calendar, 
-  Clock, 
-  MapPin, 
+import {
+  Calendar,
+  Clock,
+  MapPin,
   Users,
   Trophy,
   Lightbulb,
@@ -14,7 +16,6 @@ import {
   Code,
   Award,
   ArrowRight,
-  ExternalLink,
   CheckCircle
 } from "lucide-react";
 import { Link } from "react-router-dom";
@@ -28,7 +29,8 @@ const Events = () => {
         {
           date: "March 2024",
           title: "RIDEHack 3.0",
-          description: "Third annual hackathon with 200+ participants, 50 innovative solutions, and ₹5L in prizes.",
+          description:
+            "Third annual hackathon with 200+ participants, 50 innovative solutions, and ₹5L in prizes.",
           type: "hackathon",
           participants: 200,
           icon: Code,
@@ -37,7 +39,8 @@ const Events = () => {
         {
           date: "June 2024",
           title: "Startup Showcase Summit",
-          description: "Major investor meet featuring 17 portfolio startups, leading to ₹45L funding commitments.",
+          description:
+            "Major investor meet featuring 17 portfolio startups, leading to ₹45L funding commitments.",
           type: "showcase",
           participants: 150,
           icon: Trophy,
@@ -46,7 +49,8 @@ const Events = () => {
         {
           date: "September 2024",
           title: "Industry Partnership Day",
-          description: "Collaborated with 10+ industry partners to create mentorship and internship opportunities.",
+          description:
+            "Collaborated with 10+ industry partners to create mentorship and internship opportunities.",
           type: "partnership",
           participants: 80,
           icon: Lightbulb,
@@ -61,7 +65,8 @@ const Events = () => {
         {
           date: "February 2023",
           title: "DPIIT Recognition Achieved",
-          description: "Officially recognized by Department for Promotion of Industry and Internal Trade, Government of India.",
+          description:
+            "Officially recognized by Department for Promotion of Industry and Internal Trade, Government of India.",
           type: "milestone",
           participants: null,
           icon: Award,
@@ -70,7 +75,8 @@ const Events = () => {
         {
           date: "May 2023",
           title: "RIDEHack 2.0",
-          description: "Second edition with focus on sustainable technology solutions, 150 participants across 30 teams.",
+          description:
+            "Second edition with focus on sustainable technology solutions, 150 participants across 30 teams.",
           type: "hackathon",
           participants: 150,
           icon: Code,
@@ -79,7 +85,8 @@ const Events = () => {
         {
           date: "October 2023",
           title: "First Startup Graduations",
-          description: "Four startups successfully graduated from incubation program with combined funding of ₹80L.",
+          description:
+            "Four startups successfully graduated from incubation program with combined funding of ₹80L.",
           type: "graduation",
           participants: 50,
           icon: Rocket,
@@ -94,7 +101,8 @@ const Events = () => {
         {
           date: "August 2022",
           title: "RIDE Incubation Centre Launch",
-          description: "Official launch of RIDE with state-of-the-art facilities and inaugural batch of 8 startups.",
+          description:
+            "Official launch of RIDE with state-of-the-art facilities and inaugural batch of 8 startups.",
           type: "launch",
           participants: 100,
           icon: Rocket,
@@ -103,7 +111,8 @@ const Events = () => {
         {
           date: "November 2022",
           title: "First RIDEHack",
-          description: "Inaugural hackathon focusing on innovative solutions for local challenges, 100+ participants.",
+          description:
+            "Inaugural hackathon focusing on innovative solutions for local challenges, 100+ participants.",
           type: "hackathon",
           participants: 100,
           icon: Code,
@@ -120,7 +129,8 @@ const Events = () => {
       date: "2025-03-15",
       time: "09:00 AM",
       location: "JIIT Noida Campus",
-      description: "Annual hackathon focusing on AI solutions for social good. Build innovative applications that can make a positive impact on society.",
+      description:
+        "Annual hackathon focusing on AI solutions for social good. Build innovative applications that can make a positive impact on society.",
       category: "Hackathon",
       registrationOpen: true,
       maxParticipants: 300,
@@ -136,7 +146,8 @@ const Events = () => {
       date: "2025-04-20",
       time: "10:00 AM",
       location: "Innovation Auditorium",
-      description: "Pitch your startup idea to a panel of investors and industry experts. Winner receives ₹5L seed funding and incubation support.",
+      description:
+        "Pitch your startup idea to a panel of investors and industry experts. Winner receives ₹5L seed funding and incubation support.",
       category: "Competition",
       registrationOpen: true,
       maxParticipants: 50,
@@ -152,7 +163,8 @@ const Events = () => {
       date: "2025-05-10",
       time: "02:00 PM",
       location: "RIDE Conference Hall",
-      description: "One-on-one mentoring sessions with industry leaders. Get guidance on business strategy, funding, and scaling.",
+      description:
+        "One-on-one mentoring sessions with industry leaders. Get guidance on business strategy, funding, and scaling.",
       category: "Mentorship",
       registrationOpen: true,
       maxParticipants: 100,
@@ -168,7 +180,8 @@ const Events = () => {
       date: "2025-06-05",
       time: "11:00 AM",
       location: "Tech Lab, JIIT",
-      description: "Hands-on workshop on emerging technologies including IoT, Blockchain, and Machine Learning applications.",
+      description:
+        "Hands-on workshop on emerging technologies including IoT, Blockchain, and Machine Learning applications.",
       category: "Workshop",
       registrationOpen: false,
       maxParticipants: 80,
@@ -191,304 +204,452 @@ const Events = () => {
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
-    return date.toLocaleDateString('en-US', { 
-      weekday: 'long', 
-      year: 'numeric', 
-      month: 'long', 
-      day: 'numeric' 
+    return date.toLocaleDateString("en-US", {
+      weekday: "long",
+      year: "numeric",
+      month: "long",
+      day: "numeric"
     });
   };
 
-  const getRegistrationProgress = (current: number, max: number) => {
-    return (current / max) * 100;
+  const getRegistrationProgress = (current: number, max: number) =>
+    (current / max) * 100;
+
+  // === Scroll-based animation logic for central spine & glowing ball ===
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [scrollProgress, setScrollProgress] = useState(0);
+  const timelineRef = useRef<HTMLDivElement>(null);
+  const ballRef = useRef<HTMLDivElement>(null);
+
+  const flatEvents = timelineEvents.flatMap((y) => y.events);
+
+  useEffect(() => {
+  let animationFrameId: number | null = null;
+
+  const handleScroll = () => {
+    if (animationFrameId !== null) {
+      return; // Already scheduled
+    }
+
+    animationFrameId = window.requestAnimationFrame(() => {
+      if (!timelineRef.current) {
+        animationFrameId = null;
+        return;
+      }
+
+      const rect = timelineRef.current.getBoundingClientRect();
+      const viewportHeight = window.innerHeight;
+      const height = timelineRef.current.offsetHeight;
+
+      if (rect.bottom >= 0 && rect.top <= viewportHeight) {
+        const startOffset = viewportHeight * 0.5;
+        const scrolled = Math.max(0, startOffset - rect.top);
+        const total = height - viewportHeight * 0.5;
+        const progress = Math.min(1, Math.max(0, scrolled / total));
+        setScrollProgress(progress);
+
+        const flatEventsLength = timelineEvents.flatMap(y => y.events).length;
+        const index = Math.floor(progress * (flatEventsLength - 1));
+        setActiveIndex(Math.min(flatEventsLength - 1, Math.max(0, index)));
+      }
+      animationFrameId = null;
+    });
   };
 
+  window.addEventListener('scroll', handleScroll);
+  handleScroll();
+
+  return () => {
+    if (animationFrameId !== null) {
+      window.cancelAnimationFrame(animationFrameId);
+    }
+    window.removeEventListener('scroll', handleScroll);
+  };
+}, [timelineEvents]);
+
+
   return (
-    <Layout>
-      {/* Hero Section */}
-      <section className="py-20">
-        <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto text-center">
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-            >
-              <Badge variant="secondary" className="mb-4 px-4 py-2">
-                <Calendar className="w-4 h-4 mr-2" />
-                Events & Timeline
-              </Badge>
-              <h1 className="text-4xl md:text-6xl font-bold mb-6 text-primary">
-                Our Journey & Upcoming Events
-              </h1>
-              <p className="text-xl text-foreground max-w-3xl mx-auto mb-8">
-                Explore our milestone achievements and join us for upcoming events 
-                that shape the future of innovation and entrepreneurship.
-              </p>
-            </motion.div>
+  <Layout>
+    <div className="events-page">
+      {/* === Background Layers === */}
+      {/* Large floating gradient blobs */}
+<div className="events-bg-blobs" />
+
+{/* Animated grid overlay */}
+<div className="events-grid-overlay" />
+
+{/* Floating Spark Particles */}
+<div className="events-particles">
+  {Array.from({ length: 25 }).map((_, i) => (
+    <span
+      key={i}
+      style={{
+        left: `${Math.random() * 100}%`,
+        top: `${Math.random() * 100}%`,
+        animationDelay: `${Math.random() * 7}s`
+      }}
+    />
+  ))}
+</div>
+
+{/* Aurora Wave SVG at bottom */}
+<div className="absolute bottom-0 w-full left-0 pointer-events-none z-0">
+  <svg width="100%" height="160" viewBox="0 0 1440 160" fill="none">
+    <path d="M0 100 Q480 150 960 80 Q1440 100 1440 160 L0 160 Z" fill="url(#auroraGradient)" opacity="0.3" />
+    <defs>
+      <linearGradient id="auroraGradient" x1="0" y1="0" x2="1440" y2="0">
+        <stop stopColor="#7f5af0" />
+        <stop offset="1" stopColor="#60c1fa" />
+      </linearGradient>
+    </defs>
+  </svg>
+</div>
+
+{/* Animated Light Rays around glowing bulb */}
+<div className="absolute top-8 left-1/2 w-72 h-72 pointer-events-none" style={{ transform: 'translateX(-50%)', zIndex: 5 }}>
+  <div className="w-full h-full rounded-full bg-gradient-radial from-primary/40 via-primary/20 to-transparent animate-pulse-slow" />
+</div>
+
+{/* Rotating Hexagons or Circles */}
+<div className="absolute top-10 right-10 w-40 h-40 border-4 border-primary/30 rounded-full animate-spin-slow pointer-events-none" />
+<div className="absolute bottom-24 left-24 w-28 h-28 border-2 border-accent/25 rounded-lg animate-spin pointer-events-none" />
+
+      {/* Animated Beams */}
+{/* Aurora Waves */}
+<div className="absolute w-full bottom-0 left-0 z-5 pointer-events-none">
+  <svg width="100%" height="120" viewBox="0 0 1440 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0 80 Q480 120 960 40 Q1440 80 1440 120 L0 120 Z" fill="url(#auroraGradient)" opacity="0.23" />
+    <defs>
+      <linearGradient id="auroraGradient" x1="0" y1="0" x2="1440" y2="0">
+        <stop stopColor="#efefff"/><stop offset="1" stopColor="#98fafe"/>
+      </linearGradient>
+    </defs>
+  </svg>
+</div>
+      <div className="events-bg-blobs" />
+      <div className="events-grid-overlay" />
+      <div className="events-particles">
+  {Array.from({ length: 40 }).map((_, i) => (
+    <span
+      key={i}
+      style={{
+        left: `${Math.random() * 100}%`,
+        top: `${Math.random() * 100}%`,
+        animationDelay: `${Math.random() * 7}s`
+      }}
+    ></span>
+  ))}
+</div>
+
+
+      {/* === Foreground Content === */}
+      <div className="relative z-20">
+        {/* Sticky glowing bulb */}
+        <div className="sticky top-8 left-1/2 transform -translate-x-1/2 z-30 pointer-events-none">
+          <div className="relative">
+            <div className="w-12 h-12 bg-primary/20 rounded-full border-2 border-primary/40 backdrop-blur-sm">
+              <div className="absolute inset-2 bg-primary/60 rounded-full animate-pulse" />
+              <div className="absolute inset-3 bg-primary rounded-full" />
+              <div className="absolute -inset-2 bg-primary/10 rounded-full animate-ping" />
+            </div>
+            <div className="absolute top-12 left-1/2 -translate-x-1/2 w-px h-32 bg-gradient-to-b from-primary/50 to-transparent" />
           </div>
         </div>
-      </section>
 
-      {/* Upcoming Events */}
-      <section className="py-20">
-        <div className="container mx-auto px-4">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
-            className="text-center mb-16"
-          >
-            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-primary">
+        {/* Hero Section */}
+        <section className="py-20 relative z-10">
+          <div className="container mx-auto px-4 text-center">
+            <Badge variant="secondary" className="mb-4 px-4 py-2">
+              <Calendar className="w-4 h-4 mr-2" />
+              Events & Timeline
+            </Badge>
+            <h1 className="text-4xl md:text-6xl font-bold mb-6 text-primary">
               Upcoming Events
-            </h2>
-            <p className="text-xl text-foreground max-w-2xl mx-auto">
-              Join us for exciting opportunities to innovate, learn, and network
+            </h1>
+            <p className="text-xl text-foreground max-w-3xl mx-auto mb-8">
+              Explore our milestone achievements and join us for upcoming events
+              that shape the future of innovation and entrepreneurship.
             </p>
-          </motion.div>
+          </div>
+        </section>
 
-          <div className="grid md:grid-cols-2 gap-8">
-            {upcomingEvents.map((event, index) => {
+        {/* Upcoming Events */}
+        <section className="py-20 relative z-10">
+          <div className="container mx-auto px-4 grid md:grid-cols-2 gap-8">
+            {upcomingEvents.map((event) => {
               const Icon = event.icon;
-              const progress = getRegistrationProgress(event.currentRegistrations, event.maxParticipants);
-              
+              const progress = getRegistrationProgress(
+                event.currentRegistrations,
+                event.maxParticipants
+              );
               return (
-                <motion.div
+                <Card
                   key={event.id}
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: index * 0.1 }}
-                  viewport={{ once: true }}
+                  className="p-6 bg-gradient-card backdrop-blur-sm border border-primary/10 events-card"
                 >
-                  <Card className="p-6 h-full bg-gradient-card backdrop-blur-sm border border-primary/10">
-                    {/* Header */}
-                    <div className="flex items-start justify-between mb-4">
-                      <div className="flex items-center">
-                        <div className={`w-12 h-12 rounded-lg ${event.bgColor} flex items-center justify-center mr-3`}>
-                          <Icon className="w-6 h-6 text-primary" />
-                        </div>
-                        <div>
-                          <Badge variant="outline" className="mb-2">{event.category}</Badge>
-                          <h3 className="font-bold text-lg text-primary">{event.title}</h3>
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* Event Details */}
-                    <div className="space-y-3 mb-6">
-                      <div className="flex items-center text-sm text-foreground">
-                        <Calendar className="w-4 h-4 mr-2" />
-                        {formatDate(event.date)}
-                      </div>
-                      <div className="flex items-center text-sm text-foreground">
-                        <Clock className="w-4 h-4 mr-2" />
-                        {event.time}
-                      </div>
-                      <div className="flex items-center text-sm text-foreground">
-                        <MapPin className="w-4 h-4 mr-2" />
-                        {event.location}
-                      </div>
-                      <div className="flex items-center text-sm text-foreground">
-                        <Trophy className="w-4 h-4 mr-2" />
-                        {event.prizes}
-                      </div>
-                    </div>
-
-                    {/* Description */}
-                    <p className="text-foreground mb-6 leading-relaxed">
-                      {event.description}
-                    </p>
-
-                    {/* Registration Progress */}
-                    <div className="mb-6">
-                      <div className="flex justify-between text-sm mb-2">
-                        <span className="text-foreground">Registrations</span>
-                        <span className="text-foreground">
-                          {event.currentRegistrations}/{event.maxParticipants}
-                        </span>
-                      </div>
-                      <div className="w-full bg-muted rounded-full h-2">
-                        <div 
-                          className="bg-primary h-2 rounded-full transition-all duration-300"
-                          style={{ width: `${progress}%` }}
-                        ></div>
-                      </div>
-                    </div>
-
-                    {/* CTA Button */}
-                    <Button 
-                      className={`w-full ${event.registrationOpen ? 'bg-gradient-primary' : 'bg-muted text-muted-foreground'}`}
-                      disabled={!event.registrationOpen}
+                  <div className="flex items-center mb-4">
+                    <div
+                      className={`w-12 h-12 rounded-lg ${event.bgColor} flex items-center justify-center mr-3`}
                     >
-                      {event.ctaText}
-                      {event.registrationOpen && <ArrowRight className="w-4 h-4 ml-2" />}
-                    </Button>
-                  </Card>
-                </motion.div>
+                      <Icon className="w-6 h-6 text-primary" />
+                    </div>
+                    <div>
+                      <Badge variant="outline" className="mb-2">
+                        {event.category}
+                      </Badge>
+                      <h3 className="font-bold text-lg text-primary">
+                        {event.title}
+                      </h3>
+                    </div>
+                  </div>
+                  <div className="space-y-3 mb-6 text-sm text-foreground">
+                    <div className="flex items-center">
+                      <Calendar className="w-4 h-4 mr-2" />
+                      {formatDate(event.date)}
+                    </div>
+                    <div className="flex items-center">
+                      <Clock className="w-4 h-4 mr-2" />
+                      {event.time}
+                    </div>
+                    <div className="flex items-center">
+                      <MapPin className="w-4 h-4 mr-2" />
+                      {event.location}
+                    </div>
+                    <div className="flex items-center">
+                      <Trophy className="w-4 h-4 mr-2" />
+                      {event.prizes}
+                    </div>
+                  </div>
+                  <p className="mb-6">{event.description}</p>
+                  <div className="mb-6">
+                    <div className="flex justify-between text-sm mb-1">
+                      <span>Registrations</span>
+                      <span>
+                        {event.currentRegistrations}/{event.maxParticipants}
+                      </span>
+                    </div>
+                    <div className="w-full bg-muted rounded-full h-2">
+                      <div
+                        className="bg-primary h-2 rounded-full"
+                        style={{ width: `${progress}%` }}
+                      ></div>
+                    </div>
+                  </div>
+                  <Button
+                    disabled={!event.registrationOpen}
+                    className={`w-full ${
+                      event.registrationOpen
+                        ? "bg-gradient-primary"
+                        : "bg-muted text-muted-foreground"
+                    }`}
+                  >
+                    {event.ctaText}
+                    {event.registrationOpen && (
+                      <ArrowRight className="w-4 h-4 ml-2" />
+                    )}
+                  </Button>
+                </Card>
               );
             })}
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* Interactive Timeline */}
-      <section className="py-20 bg-muted/30">
-        <div className="container mx-auto px-4">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
-            className="text-center mb-16"
-          >
-            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-primary">
-              Our Journey Timeline
-            </h2>
-            <p className="text-xl text-foreground max-w-2xl mx-auto">
-              Key milestones and achievements that shaped RIDE's growth
+        {/* Animated Timeline Section */}
+        <section className="py-20 relative z-10" ref={timelineRef}>
+          {/* Timeline Title */}
+          <div className="container mx-auto px-4 text-center mb-12">
+            <h1 className="text-4xl font-bold text-primary mb-2 events-section-title">
+              Our Journey
+            </h1>
+            <p className="text-muted-foreground max-w-xl mx-auto mt-2">
+              Follow our timeline of achievements and milestones
             </p>
-          </motion.div>
+          </div>
+          <div className="container mx-auto px-4 relative">
+            {/* Central Spine - Behind everything */}
+            <div className="absolute left-1/2 top-0 transform -translate-x-1/2 w-1 h-full bg-primary/20 z-0 pointer-events-none" />
 
-          <div className="relative">
-            {/* Timeline Line */}
-            <div className="absolute left-8 md:left-1/2 top-0 bottom-0 w-0.5 bg-primary/30 transform md:-translate-x-1/2"></div>
+            {/* Progress Line - above spine but behind events */}
+            <div
+              className="absolute left-1/2 top-0 transform -translate-x-1/2 w-1 bg-primary transition-all duration-300 z-10 pointer-events-none"
+              style={{ height: `${scrollProgress * 100}%` }}
+            />
 
-            {timelineEvents.map((yearData, yearIndex) => (
-              <div key={yearData.year} className="mb-16">
-                {/* Year Header */}
-                <motion.div
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.6 }}
-                  viewport={{ once: true }}
-                  className="relative flex justify-center mb-8"
-                >
-                  <div className="bg-primary text-primary-foreground px-6 py-3 rounded-full font-bold text-xl">
-                    {yearData.year}
+            {/* Glowing Ball */}
+            <div
+              className="absolute left-1/2 top-0 transform -translate-x-1/2 w-6 h-6 rounded-full bg-primary events-timeline-ball transition-all duration-300 pointer-events-none"
+              style={{
+                top: `calc(${scrollProgress * 100}% )`
+              }}
+            ></div>
+            {/* Year Blocks and Events */}
+            {timelineEvents.map((yearBlock, yIdx) => {
+              const flatIdx = timelineEvents
+                .slice(0, yIdx)
+                .reduce((acc, y) => acc + y.events.length, 0);
+
+              const isYearActive = flatIdx <= activeIndex;
+
+              return (
+                <div key={yearBlock.year} className="mb-24 relative z-20">
+                  {/* Year Label centered above timeline spine */}
+                  <div className="flex flex-col items-center mb-12 relative">
+                    <div
+                      className={`px-6 py-3 rounded-full font-bold text-xl transition-colors duration-300 events-year-badge ${
+                        isYearActive ? "glow" : "outline"
+                      }`}
+                      style={{ userSelect: "none" }}
+                    >
+                      {yearBlock.year}
+                    </div>
+                    <h3 className="mt-2 text-lg font-semibold text-accent bg-card/80 px-3 py-1 rounded select-none">
+                      {yearBlock.title}
+                    </h3>
                   </div>
-                  <h3 className="absolute top-16 text-center text-lg font-semibold text-accent">
-                    {yearData.title}
-                  </h3>
-                </motion.div>
-
-                {/* Events for this year */}
-                <div className="space-y-8 mt-16">
-                  {yearData.events.map((event, eventIndex) => {
-                    const Icon = event.icon;
-                    const isLeft = eventIndex % 2 === 0;
-                    
-                    return (
-                      <motion.div
-                        key={eventIndex}
-                        initial={{ opacity: 0, x: isLeft ? -50 : 50 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        transition={{ duration: 0.6, delay: eventIndex * 0.1 }}
-                        viewport={{ once: true }}
-                        className={`relative flex ${isLeft ? 'md:justify-start' : 'md:justify-end'} justify-start`}
-                      >
-                        {/* Timeline Node */}
-                        <div className="absolute left-8 md:left-1/2 w-4 h-4 bg-primary rounded-full transform -translate-x-1/2 mt-6 z-10"></div>
-                        
-                        {/* Event Card */}
-                        <div className={`w-full md:w-5/12 ml-16 md:ml-0 ${!isLeft ? 'md:mr-16' : ''}`}>
-                          <Card className="p-6 bg-gradient-card backdrop-blur-sm border border-primary/10">
-                            <div className="flex items-start justify-between mb-4">
-                              <div className="flex items-center">
-                                <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center mr-3">
-                                  <Icon className="w-5 h-5 text-primary" />
-                                </div>
-                                <div>
-                                  <Badge className={eventTypeColors[event.type as keyof typeof eventTypeColors]} variant="secondary">
+                  {/* Events for this year */}
+                  <div className="space-y-20">
+                    {yearBlock.events.map((event, eIdx) => {
+                      const index = flatIdx + eIdx;
+                      const isActive = index <= activeIndex;
+                      const isLeft = index % 2 === 0;
+                      const Icon = event.icon;
+                      return (
+                        <div
+                          key={index}
+                          className={`flex items-center ${
+                            isLeft ? "flex-row" : "flex-row-reverse"
+                          } relative`}
+                        >
+                          {/* Checkpoint */}
+                          <div className="absolute left-1/2 transform -translate-x-1/2 z-20">
+                            <div
+                              className={`w-4 h-4 rounded-full border-4 transition-colors duration-500 ${
+                                isActive
+                                  ? "bg-primary border-primary shadow-glow-primary"
+                                  : "bg-transparent border-primary/30"
+                              }`}
+                            />
+                          </div>
+                          {/* Card */}
+                          <div className={`w-5/12 ${isLeft ? "pr-8" : "pl-8"}`}>
+                            <Card
+                              className={`bg-card/50 backdrop-blur-sm border transition-all duration-500 transform events-card ${
+                                isActive
+                                  ? "border-primary/30 shadow-glow-secondary translate-y-0 opacity-100"
+                                  : "border-border/50 translate-y-4 opacity-60"
+                              }`}
+                            >
+                              <CardHeader className="pb-3">
+                                <div className="flex items-center justify-between mb-2">
+                                  <Badge
+                                    className={
+                                      eventTypeColors[
+                                        event.type as keyof typeof eventTypeColors
+                                      ]
+                                    }
+                                  >
+                                    <Icon className="w-3 h-3 mr-1" />
                                     {event.type}
                                   </Badge>
-                                  <p className="text-sm text-accent mt-1">{event.date}</p>
+                                  <span className="text-sm text-muted-foreground">
+                                    {event.date}
+                                  </span>
                                 </div>
-                              </div>
-                              <CheckCircle className="w-5 h-5 text-green-500" />
-                            </div>
-                            
-                            <h4 className="text-lg font-bold text-primary mb-3">{event.title}</h4>
-                            <p className="text-foreground leading-relaxed mb-4">{event.description}</p>
-                            
-                            {event.participants && (
-                              <div className="flex items-center text-sm text-foreground">
-                                <Users className="w-4 h-4 mr-2" />
-                                {event.participants} participants
-                              </div>
-                            )}
-                          </Card>
+                                <CardTitle className="text-lg font-semibold text-foreground">
+                                  {event.title}
+                                </CardTitle>
+                              </CardHeader>
+                              <CardContent>
+                                <p className="text-muted-foreground text-sm leading-relaxed">
+                                  {event.description}
+                                </p>
+                                {event.participants && (
+                                  <div className="flex items-center text-sm text-foreground mt-2">
+                                    <Users className="w-4 h-4 mr-2" />
+                                    {event.participants} participants
+                                  </div>
+                                )}
+                              </CardContent>
+                            </Card>
+                          </div>
+                          <div className="w-5/12" />
                         </div>
-                      </motion.div>
-                    );
-                  })}
+                      );
+                    })}
+                  </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* Event Categories */}
-      <section className="py-20">
-        <div className="container mx-auto px-4">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
-            className="text-center mb-16"
-          >
-            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-primary">
-              Types of Events We Host
-            </h2>
-            <p className="text-xl text-foreground max-w-2xl mx-auto">
-              Diverse opportunities for learning, networking, and innovation
-            </p>
-          </motion.div>
-
-          <div className="grid md:grid-cols-3 gap-8">
-            {[
-              {
-                icon: Code,
-                title: "Hackathons",
-                description: "24-48 hour coding marathons where teams build innovative solutions to real-world problems.",
-                features: ["Prize pools up to ₹10L", "Industry mentors", "Networking opportunities", "Prototype development"]
-              },
-              {
-                icon: Users,
-                title: "Workshops & Seminars",
-                description: "Educational sessions covering entrepreneurship, technology trends, and business development.",
-                features: ["Expert speakers", "Hands-on learning", "Skill development", "Certification programs"]
-              },
-              {
-                icon: Trophy,
-                title: "Pitch Competitions",
-                description: "Platforms for startups to present their ideas to investors and win funding opportunities.",
-                features: ["Investor panel", "Funding opportunities", "Media exposure", "Mentorship access"]
-              }
-            ].map((category, index) => {
-              const Icon = category.icon;
-              return (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: index * 0.2 }}
-                  viewport={{ once: true }}
-                >
-                  <Card className="p-8 h-full bg-gradient-card backdrop-blur-sm border border-primary/10">
+        {/* Types of Events Section */}
+        <section className="py-20">
+          <div className="container mx-auto px-4">
+            <div className="text-center mb-16">
+              <h2 className="text-3xl md:text-4xl font-bold mb-4 text-primary">
+                Types of Events We Host
+              </h2>
+              <p className="text-xl text-foreground max-w-2xl mx-auto">
+                Diverse opportunities for learning, networking, and innovation
+              </p>
+            </div>
+            <div className="grid md:grid-cols-3 gap-8">
+              {[
+                {
+                  icon: Code,
+                  title: "Hackathons",
+                  description:
+                    "24-48 hour coding marathons where teams build innovative solutions to real-world problems.",
+                  features: [
+                    "Prize pools up to ₹10L",
+                    "Industry mentors",
+                    "Networking opportunities",
+                    "Prototype development"
+                  ]
+                },
+                {
+                  icon: Users,
+                  title: "Workshops & Seminars",
+                  description:
+                    "Educational sessions covering entrepreneurship, technology trends, and business development.",
+                  features: [
+                    "Expert speakers",
+                    "Hands-on learning",
+                    "Skill development",
+                    "Certification programs"
+                  ]
+                },
+                {
+                  icon: Trophy,
+                  title: "Pitch Competitions",
+                  description:
+                    "Platforms for startups to present their ideas to investors and win funding opportunities.",
+                  features: [
+                    "Investor panel",
+                    "Funding opportunities",
+                    "Media exposure",
+                    "Mentorship access"
+                  ]
+                }
+              ].map((category, index) => {
+                const Icon = category.icon;
+                return (
+                  <Card
+                    key={index}
+                    className="p-8 h-full bg-gradient-card backdrop-blur-sm border border-primary/10 events-card"
+                  >
                     <div className="text-center mb-6">
                       <div className="w-16 h-16 bg-gradient-primary rounded-full flex items-center justify-center mx-auto mb-4">
                         <Icon className="w-8 h-8 text-primary-foreground" />
                       </div>
-                      <h3 className="text-xl font-bold text-primary mb-2">{category.title}</h3>
+                      <h3 className="text-xl font-bold text-primary mb-2">
+                        {category.title}
+                      </h3>
                     </div>
-                    
                     <p className="text-foreground mb-6 leading-relaxed">
                       {category.description}
                     </p>
-
                     <div className="space-y-2">
                       {category.features.map((feature, featureIndex) => (
                         <div key={featureIndex} className="flex items-center text-sm">
@@ -498,47 +659,16 @@ const Events = () => {
                       ))}
                     </div>
                   </Card>
-                </motion.div>
-              );
-            })}
-          </div>
-        </div>
-      </section>
-
-      {/* CTA Section */}
-      <section className="py-20 bg-muted/30">
-        <div className="container mx-auto px-4">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
-            className="text-center bg-gradient-card backdrop-blur-sm border border-primary/10 rounded-2xl p-12"
-          >
-            <Calendar className="w-16 h-16 mx-auto mb-6 text-primary" />
-            <h2 className="text-3xl md:text-4xl font-bold mb-6 text-primary">
-              Stay Updated with Our Events
-            </h2>
-            <p className="text-xl text-foreground mb-8 max-w-2xl mx-auto">
-              Subscribe to our newsletter and never miss an opportunity to be part 
-              of the innovation ecosystem at RIDE.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button size="lg" className="bg-gradient-primary">
-                Subscribe to Newsletter
-                <ArrowRight className="w-5 h-5 ml-2" />
-              </Button>
-              <Link to="/contact">
-                <Button variant="outline" size="lg" className="border-primary/30">
-                  Contact Us
-                </Button>
-              </Link>
+                );
+              })}
             </div>
-          </motion.div>
-        </div>
-      </section>
-    </Layout>
-  );
-};
+          </div>
+        </section>
+      </div>
+    </div>
+  </Layout>
+);
+
+}
 
 export default Events;
