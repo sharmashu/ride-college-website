@@ -4,6 +4,8 @@ import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { motion } from "framer-motion";
 import BlurText from "@/components/ui/BlurText";
+import TiltedCard from "@/components/tiltedcards/tiltedcards";
+import { GradientButton } from "@/components/ui/gradient-button"
 import { 
   Target, 
   Eye, 
@@ -197,6 +199,8 @@ const About = () => {
                   transition={{ duration: 0.6 }}
                   viewport={{ once: true }}
                 >
+                <div className="[perspective:1000px]">
+                    <TiltedCard>
                   <Card className="p-8 h-full bg-gradient-card backdrop-blur-sm border border-primary/10">
                     <div className="flex items-center mb-6">
                       <div className="w-12 h-12 bg-gradient-primary rounded-lg flex items-center justify-center mr-4">
@@ -208,6 +212,8 @@ const About = () => {
                       {item.content}
                     </p>
                   </Card>
+                  </TiltedCard>
+                  </div>
                 </motion.div>
               );
             })}
@@ -242,6 +248,8 @@ const About = () => {
                 transition={{ duration: 0.6, delay: index * 0.1 }}
                 viewport={{ once: true }}
               >
+                <div className="[perspective:1000px]">
+                <TiltedCard>
                 <Card className="p-6 h-full bg-gradient-card backdrop-blur-sm border border-primary/10">
                   <div className="flex items-center mb-4">
                     <div className="w-10 h-10 bg-primary text-primary-foreground rounded-full flex items-center justify-center font-bold mr-3">
@@ -253,6 +261,8 @@ const About = () => {
                     {step.description}
                   </p>
                 </Card>
+                </TiltedCard>
+                </div>
               </motion.div>
             ))}
           </div>
@@ -342,9 +352,9 @@ const About = () => {
                 </Button>
               </Link>
               <Link to="/mentorship">
-                <Button variant="outline" size="lg" className="border-primary/30">
-                  Become a Mentor
-                </Button>
+                <GradientButton variant="variant" className="text-base px-6 py-3">
+                   Become a Mentor
+                </GradientButton>
               </Link>
             </div>
           </motion.div>

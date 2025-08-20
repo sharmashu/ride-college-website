@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { motion } from "framer-motion";
+import { GradientButton } from "@/components/ui/gradient-button"
 import { 
   Rocket, 
   Mail, 
@@ -50,7 +51,7 @@ const Footer = () => {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
-            className="space-y-6 relative z-10"
+            className="space-y-6 relative z-20"
           >
             <Link to="/" className="flex items-center space-x-2 group">
               <motion.div
@@ -97,7 +98,7 @@ const Footer = () => {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.1 }}
             viewport={{ once: true }}
-            className="space-y-6 relative z-10"
+            className="space-y-6 relative z-20"
           >
             <h3 className="text-lg font-semibold text-foreground">Quick Links</h3>
             <ul className="space-y-3">
@@ -125,7 +126,7 @@ const Footer = () => {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
             viewport={{ once: true }}
-            className="space-y-6 relative z-10"
+            className="space-y-6 relative z-20"
           >
             <h3 className="text-lg font-semibold text-foreground">Resources</h3>
             <ul className="space-y-3">
@@ -153,22 +154,24 @@ const Footer = () => {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.3 }}
             viewport={{ once: true }}
-            className="space-y-6 relative z-10"
+            className="space-y-6 relative z-20"
           >
             <h3 className="text-lg font-semibold text-foreground">Get Started</h3>
             
-            <div className="space-y-4">
+            <div className=" flex flex-col gap-0">
               <Link to="/apply">
                 <Button className="w-full bg-gradient-primary hover:shadow-glow transition-all duration-300 group">
                   <span className="mr-2">Apply as Startup</span>
                   <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                 </Button>
               </Link>
-              
+              </div>
+              <div className="flex justify-center">
               <Link to="/mentorship">
-                <Button variant="outline" className="w-full border-primary/30 hover:bg-primary/10">
+                <GradientButton variant="variant" className="text-base px-6 py-3">
                   Join as Mentor
-                </Button>
+                </GradientButton>
+          
               </Link>
             </div>
 
